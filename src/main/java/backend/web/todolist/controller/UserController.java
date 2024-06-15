@@ -1,6 +1,8 @@
 package backend.web.todolist.controller;
 
+import backend.web.todolist.controller.dto.CreateTaskDto;
 import backend.web.todolist.controller.dto.CreateUserDto;
+import backend.web.todolist.entities.Task;
 import backend.web.todolist.entities.User;
 import backend.web.todolist.service.UserService;
 import org.springframework.http.ResponseEntity;
@@ -43,6 +45,17 @@ public class UserController {
         return ResponseEntity.ok(users);
     }
 
+    // Criar task pelo usuário
+    @PostMapping("/{userId}/tasks")
+    public ResponseEntity<User> createTaskUser(@PathVariable("userId")
+                                               String userId,
+                                               @RequestBody CreateTaskDto createTaskDto
+                                               ){
 
+        userService.createTask(userId, createTaskDto);
+
+        return ResponseEntity.ok().build();
+
+    }
 
 }
