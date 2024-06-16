@@ -62,11 +62,11 @@ public class UserService {
         // DTO -> entity
 
         var taskUser = new Task(
-                createTaskDto.id(),
+                10,
                 createTaskDto.titleTask(),
                 createTaskDto.description(),
                 null,
-                createTaskDto.completed()
+                false
         );
 
         var taskCreated =taskRepository.save(taskUser);
