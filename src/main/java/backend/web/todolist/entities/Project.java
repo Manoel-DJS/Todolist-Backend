@@ -24,10 +24,6 @@ public class Project {
     @JoinColumn(name = "userid")
     private User user;
 
-    // FK task
-
-    @OneToMany(mappedBy = "project")
-    private List<Task> tasks;
 
     public Project(){
 
@@ -38,7 +34,7 @@ public class Project {
         this.name = name;
         this.descriptionProject = descriptionProject;
         this.user = user;
-        this.tasks = tasks;
+        // this.tasks = tasks;
     }
 
     public long getProjectid() {
@@ -72,14 +68,5 @@ public class Project {
     public void setUser(User user) {
         this.user = user;
     }
-
-    public List<Task> getTasks() {
-        return tasks;
-    }
-
-    public void setTasks(List<Task> tasks) {
-        this.tasks = tasks;
-    }
-
 
 }
