@@ -1,5 +1,6 @@
 package backend.web.todolist.entities;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -27,11 +28,13 @@ public class User {
     @UpdateTimestamp
     private Instant updateTimestamp;
 
+    @OneToMany(mappedBy = "user")
+    private List<Project> projects;
+
+    @JsonManagedReference
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     private List<Task> tasks;
 
-    @OneToMany(mappedBy = "user")
-    private List<Project> projects;
 
     public User(){
 
