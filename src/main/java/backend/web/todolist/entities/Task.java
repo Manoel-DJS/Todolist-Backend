@@ -1,5 +1,6 @@
 package backend.web.todolist.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -20,20 +21,18 @@ public class Task {
     private boolean completed;
 
     // FK
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
-
-    @ManyToOne
-    @JoinColumn(name = "projectid")
-    private Project project;
 
     public Task(){
 
     }
 
-    public Task(long id, String titleTask, String description, Instant creationTimestamp, boolean completed) {
+    public Task(long id, User user, String titleTask, String description, Instant creationTimestamp, boolean completed) {
         this.id = id;
+        this.user = user;
         this.titleTask = titleTask;
         this.description = description;
         this.creationTimestamp = creationTimestamp;
@@ -88,11 +87,4 @@ public class Task {
         this.user = user;
     }
 
-    public Project getProject() {
-        return project;
-    }
-
-    public void setProject(Project project) {
-        this.project = project;
-    }
 }
