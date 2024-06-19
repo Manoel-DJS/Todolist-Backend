@@ -61,8 +61,10 @@ public class UserService {
 
         // DTO -> entity
 
+        // Consertar entrada id
         var taskUser = new Task(
-                10,
+                createTaskDto.id(), // Vai entrar o número automaticamente
+                user, // pronto
                 createTaskDto.titleTask(),
                 createTaskDto.description(),
                 null,
