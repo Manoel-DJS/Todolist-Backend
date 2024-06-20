@@ -63,7 +63,7 @@ public class UserService {
 
         // Consertar entrada id
         var taskUser = new Task(
-                createTaskDto.id(), // Vai entrar o número automaticamente
+                // createTaskDto.id(), // Vai entrar o número automaticamente
                 user, // pronto
                 createTaskDto.titleTask(),
                 createTaskDto.description(),
@@ -73,5 +73,23 @@ public class UserService {
 
         var taskCreated =taskRepository.save(taskUser);
 
+    }
+
+    public void deleteTaskUserById(String userId, Long taskId){
+
+        var userExists = userRepository.findById(UUID.fromString(userId));
+        var taskExists = taskId;
+
+
+        // DTO --> Entity
+
+        var taskDelete = new Task(
+                taskExists,
+                userExists.get()
+        );
+
+        if(userExists.isPresent()){
+            taskRepository.delete(taskDelete);
+        }
     }
 }

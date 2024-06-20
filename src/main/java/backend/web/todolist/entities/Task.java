@@ -30,8 +30,13 @@ public class Task {
 
     }
 
-    public Task(long id, User user, String titleTask, String description, Instant creationTimestamp, boolean completed) {
+    public Task(long id, User user) {
         this.id = id;
+        this.user = user;
+    }
+
+    public Task(User user, String titleTask, String description, Instant creationTimestamp, boolean completed) {
+        // this.id = id;
         this.user = user;
         this.titleTask = titleTask;
         this.description = description;

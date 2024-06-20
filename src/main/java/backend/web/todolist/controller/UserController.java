@@ -58,4 +58,11 @@ public class UserController {
 
     }
 
+    @DeleteMapping("/{userId}/tasks")
+    public ResponseEntity<Void> deleteTaskUserById(@PathVariable("userId")
+                                                   String userId, Long taskId){
+        userService.deleteTaskUserById(userId,taskId);
+        return ResponseEntity.noContent().build();
+    }
+
 }
