@@ -2,6 +2,7 @@ package backend.web.todolist.controller;
 
 import backend.web.todolist.controller.dto.CreateTaskDto;
 import backend.web.todolist.controller.dto.CreateUserDto;
+import backend.web.todolist.controller.dto.UpdateTaskDto;
 import backend.web.todolist.entities.Task;
 import backend.web.todolist.entities.User;
 import backend.web.todolist.service.UserService;
@@ -58,11 +59,21 @@ public class UserController {
 
     }
 
+    @PutMapping("/{userId}/tasks")
+    public ResponseEntity<Void> updateTaskUserById(@PathVariable("userId") String userId, Long taskId,
+                                                   @RequestBody UpdateTaskDto updateTaskDto){
+        userService.updateTaskUserById(userId,taskId, updateTaskDto);
+        return ResponseEntity.noContent().build();
+    }
+
     @DeleteMapping("/{userId}/tasks")
     public ResponseEntity<Void> deleteTaskUserById(@PathVariable("userId")
                                                    String userId, Long taskId){
         userService.deleteTaskUserById(userId,taskId);
         return ResponseEntity.noContent().build();
     }
+
+
+
 
 }

@@ -2,6 +2,7 @@ package backend.web.todolist.service;
 
 import backend.web.todolist.controller.dto.CreateTaskDto;
 import backend.web.todolist.controller.dto.CreateUserDto;
+import backend.web.todolist.controller.dto.UpdateTaskDto;
 import backend.web.todolist.entities.Task;
 import backend.web.todolist.entities.User;
 import backend.web.todolist.repository.TaskRepository;
@@ -75,6 +76,33 @@ public class UserService {
 
     }
 
+    public void updateTaskUserById(String userId, Long taskId,UpdateTaskDto updateTaskDto){
+
+        var userEntity = userRepository.findById(UUID.fromString(userId));
+        var taskEntity = taskRepository.findById(taskId);
+
+        if(userEntity.isPresent()){
+            var user = userEntity.get();
+
+            if(taskEntity.isPresent()){
+                var newUserTask = taskEntity.get();
+
+                if(updateTaskDto.titleTask() != null){
+                    newUserTask.setTitleTask(updateTaskDto.titleTask());
+                }
+                if (updateTaskDto.description() != null){
+                    newUserTask.setDescription(updateTaskDto.description());
+                }
+
+                taskRepository.save(newUserTask);
+            }
+
+        }
+
+
+
+    }
+
     public void deleteTaskUserById(String userId, Long taskId){
 
         var userExists = userRepository.findById(UUID.fromString(userId));
@@ -92,4 +120,6 @@ public class UserService {
             taskRepository.delete(taskDelete);
         }
     }
+
+
 }
