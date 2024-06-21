@@ -46,34 +46,5 @@ public class UserController {
         return ResponseEntity.ok(users);
     }
 
-    // Criar task pelo usuário
-    @PostMapping("/{userId}/tasks")
-    public ResponseEntity<User> createTaskUser(@PathVariable("userId")
-                                               String userId,
-                                               @RequestBody CreateTaskDto createTaskDto
-                                               ){
-
-        userService.createTask(userId, createTaskDto);
-
-        return ResponseEntity.ok().build();
-
-    }
-
-    @PutMapping("/{userId}/tasks")
-    public ResponseEntity<Void> updateTaskUserById(@PathVariable("userId") String userId, Long taskId,
-                                                   @RequestBody UpdateTaskDto updateTaskDto){
-        userService.updateTaskUserById(userId,taskId, updateTaskDto);
-        return ResponseEntity.noContent().build();
-    }
-
-    @DeleteMapping("/{userId}/tasks")
-    public ResponseEntity<Void> deleteTaskUserById(@PathVariable("userId")
-                                                   String userId, Long taskId){
-        userService.deleteTaskUserById(userId,taskId);
-        return ResponseEntity.noContent().build();
-    }
-
-
-
 
 }
