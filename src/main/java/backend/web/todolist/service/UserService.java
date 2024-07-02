@@ -5,10 +5,13 @@ import backend.web.todolist.controller.dto.CreateUserDto;
 import backend.web.todolist.controller.dto.UpdateTaskDto;
 import backend.web.todolist.entities.Task;
 import backend.web.todolist.entities.User;
+import backend.web.todolist.exception.BadRequestException;
+import backend.web.todolist.exception.InvalidUUIDException;
 import backend.web.todolist.repository.TaskRepository;
 import backend.web.todolist.repository.UserRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.time.Instant;
@@ -47,8 +50,9 @@ public class UserService {
         return userSaved.getUserid();
     }
 
-    public Optional<User> getUserById(String userId){
-        return userRepository.findById(UUID.fromString(userId));
+    // Optional<User>
+    public User getUserById(String userId){
+        return userRepository.findById(UUID.fromString(userId)).orElseThrow(() -> new BadRequestException("ID não encontrado"));
     }
 
     public List<User> listUsers(){
@@ -58,7 +62,7 @@ public class UserService {
     public void createTask(String userId, CreateTaskDto createTaskDto) {
 
         var user = userRepository.findById(UUID.fromString(userId))
-                .orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> new BadRequestException("ID não encontrado"));
 
         // DTO -> entity
 
