@@ -28,7 +28,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     public ResponseEntity<BadRequestExceptionDetails> handlerBadRequestException(BadRequestException bre){
 
         BadRequestExceptionDetails details = new BadRequestExceptionDetails(
-                "MatcheKa",
+                "BAD REQUEST",
                 HttpStatus.BAD_REQUEST.value(),
                 bre.getMessage(),
                 bre.getClass().getName(),
