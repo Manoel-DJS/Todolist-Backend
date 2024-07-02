@@ -34,7 +34,6 @@ public class UserService {
 
 
     public UUID createUser(CreateUserDto createUserDto){
-
         // DTO -> Entity
         var entity = new User(
                 UUID.randomUUID(),
@@ -52,7 +51,24 @@ public class UserService {
 
     // Optional<User>
     public User getUserById(String userId){
-        return userRepository.findById(UUID.fromString(userId)).orElseThrow(() -> new BadRequestException("ID não encontrado"));
+        if (validateUserById(userId)) {
+            System.out.println("UUID válido");
+            return userRepository.findById(UUID.fromString(userId)).orElseThrow(() -> new BadRequestException("ID não encontrado"));
+        } else {
+            throw new InvalidUUIDException("A string fornecida não é um UUID válido: " + userId);
+        }
+
+        // return userRepository.findById(UUID.fromString(userId)).orElseThrow(() -> new BadRequestException("ID não encontrado"));
+    }
+
+    // Validador de UUID
+    public boolean validateUserById(String userId){
+        var ValidId = userId;
+        if(ValidId == null || ValidId.length() != 36){
+            return false;
+        } else{
+            return true;
+        }
     }
 
     public List<User> listUsers(){
